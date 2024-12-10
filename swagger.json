@@ -1,0 +1,72 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Speaker Booking API",
+      "description": "API for managing speaker sessions and bookings"
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "schemes": ["http"],
+    "paths": {
+      "/auth/signup": {
+        "post": {
+          "summary": "User Signup",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          ],
+          "responses": {
+            "201": { "description": "User created" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/sessions/book": {
+        "post": {
+          "summary": "Book a session",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Booking"
+              }
+            }
+          ],
+          "responses": {
+            "201": { "description": "Session booked" },
+            "400": { "description": "Slot already booked" }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "email": { "type": "string" },
+          "password": { "type": "string" },
+          "userType": { "type": "string" }
+        }
+      },
+      "Booking": {
+        "type": "object",
+        "properties": {
+          "speakerId": { "type": "integer" },
+          "date": { "type": "string", "format": "date" },
+          "timeSlot": { "type": "string" }
+        }
+      }
+    }
+  }
+  
